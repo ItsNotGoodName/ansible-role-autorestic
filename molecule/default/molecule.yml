@@ -1,0 +1,13 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: debian10
+    image: docker.io/pycontribs/debian
+    pre_build_image: true
+provisioner:
+  name: ansible
+verifier:
+  name: ansible

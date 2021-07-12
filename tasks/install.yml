@@ -1,0 +1,53 @@
+---
+- name: Install restic
+  package:
+    name: "{{ autorestic_restic_package }}"
+    state: present
+  become: true
+
+- name: "Get stat of {{ autorestic_install_directory }}/{{ autorestic_install_binary }}"
+  stat:
+    path: "{{ autorestic_install_directory }}/{{ autorestic_install_binary }}"
+  register: binary_register
+
+- name: Get autorestic version
+  shell: autorestic --version | grep -oP "autorestic\ version\ \K[0-9]*\.[0-9]*\.[0-9]*"
+  register: version_register
+  changed_when: false
+  when: binary_register.stat.exists
+
+- name: Set autorestic install variables
+  set_fact:
+    autorestic_installed: "{{ binary_register.stat.exists }}"
+    autorestic_install_version: "{{ version_register.stdout | default(False) }}"
+
+- block:
+    - name: "Make sure {{ autorestic_download_directory }} does not exist"
+      file:
+        path: "{{ autorestic_download_directory }}"
+        state: absent
+
+    - name: "Create {{ autorestic_download_directory }}"
+      file:
+        path: "{{ autorestic_download_directory }}"
+        state: directory
+        mode: 0755
+
+    - name: Download autorestic
+      get_url:
+        url: "{{ autorestic_download_url }}"
+        dest: "{{ autorestic_download_directory }}"
+        checksum: "{{ autorestic_download_checksum }}"
+
+    - name: Extract autorestic
+      shell: "cd {{ autorestic_download_directory }} && bzip2 -d {{ autorestic_download_zip }}"
+
+    - name: Copy autorestic binary to install directory
+      copy:
+        src: "{{ autorestic_download_directory }}/{{ autorestic_download_binary }}"
+        dest: "{{ autorestic_install_directory }}/{{ autorestic_install_binary }}"
+        mode: 0755
+        remote_src: true
+
+  when: not autorestic_installed or autorestic_install_version != autorestic_download_version
+  become: true

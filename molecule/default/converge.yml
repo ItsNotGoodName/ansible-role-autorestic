@@ -1,0 +1,16 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include itsnotgoodname.autorestic"
+      include_role:
+        name: "itsnotgoodname.autorestic"
+
+- name: Converge with variables
+  hosts: all
+  vars_files:
+    - "test_vars.yml"
+  tasks:
+    - name: "Include itsnotgoodname.autorestic"
+      include_role:
+        name: "itsnotgoodname.autorestic"
