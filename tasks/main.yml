@@ -3,9 +3,11 @@
   package:
     name: bzip2
     state: present
+  become: true
 
 - import_tasks: install-restic.yml
   when: autorestic_restic_install
+
 - import_tasks: install-autorestic.yml
   when: autorestic_autorestic_install
 
