@@ -1,0 +1,47 @@
+---
+- name: "Get stat of {{ autorestic_restic_install_directory }}/{{ autorestic_restic_install_binary }}"
+  stat:
+    path: "{{ autorestic_restic_install_directory }}/{{ autorestic_restic_install_binary }}"
+  register: binary_register
+
+- name: Get restic version
+  shell: "{{ binary_register.stat.path }} version | grep -oP 'restic\\ \\K[0-9]*\\.[0-9]*\\.[0-9]*'"
+  register: version_register
+  changed_when: false
+  when: binary_register.stat.exists
+
+- name: Set restic install variables
+  set_fact:
+    autorestic_restic_installed: "{{ binary_register.stat.exists }}"
+    autorestic_restic_install_version: "{{ version_register.stdout | default(False) }}"
+
+- block:
+    - name: "Make sure {{ autorestic_restic_download_directory }} does not exist"
+      file:
+        path: "{{ autorestic_restic_download_directory }}"
+        state: absent
+
+    - name: "Create {{ autorestic_restic_download_directory }}"
+      file:
+        path: "{{ autorestic_restic_download_directory }}"
+        state: directory
+        mode: 0755
+
+    - name: Download restic
+      get_url:
+        url: "{{ autorestic_restic_download_url }}"
+        dest: "{{ autorestic_restic_download_directory }}"
+        checksum: "{{ autorestic_restic_download_checksum }}"
+
+    - name: Extract restic
+      shell: "cd {{ autorestic_restic_download_directory }} && bzip2 -d {{ autorestic_restic_download_zip }}"
+
+    - name: Copy restic binary to install directory
+      copy:
+        src: "{{ autorestic_restic_download_directory }}/{{ autorestic_restic_download_binary }}"
+        dest: "{{ autorestic_restic_install_directory }}/{{ autorestic_restic_install_binary }}"
+        mode: 0755
+        remote_src: true
+
+  when: not autorestic_restic_installed or autorestic_restic_install_version != autorestic_restic_download_version
+  become: true

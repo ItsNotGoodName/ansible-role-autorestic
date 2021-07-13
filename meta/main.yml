@@ -40,9 +40,7 @@ galaxy_info:
   #   - 7
   #   - 99.99
   platforms:
-    - name: Debian
-      versions:
-        - buster
+    []
 
   galaxy_tags:
     []

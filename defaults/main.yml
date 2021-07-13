@@ -1,11 +1,26 @@
 ---
-# User configuration
 autorestic_user: root
-autorestic_user_directory: WillBeSetWhenRoleIsRun
+autorestic_restic_install: true
+autorestic_autorestic_install: true
 
-autorestic_restic_package: restic
+################### Restic Install ############################################
 
-# Download location of autorestic
+# Download of restic
+autorestic_restic_download_version: 0.12.0
+autorestic_restic_download_checksum: "sha256:63d13d53834ea8aa4d461f0bfe32a89c70ec47e239b91f029ed10bd88b8f4b80"
+autorestic_restic_download_platform: linux_amd64
+autorestic_restic_download_zip: "restic_{{ autorestic_restic_download_version }}_{{ autorestic_restic_download_platform }}.bz2"
+autorestic_restic_download_url: "https://github.com/restic/restic/releases/download/v{{ autorestic_restic_download_version }}/{{ autorestic_restic_download_zip }}"
+autorestic_restic_download_directory: "/tmp/restic_install"
+autorestic_restic_download_binary: "{{ (autorestic_restic_download_zip | splitext)[0] }}"
+
+# Install location of restic
+autorestic_restic_install_binary: restic
+autorestic_restic_install_directory: /usr/local/bin
+
+################### Autorestic Install ########################################
+
+# Download of autorestic
 autorestic_download_version: 1.1.2
 autorestic_download_checksum: "sha256:68560d098ce1b3eb43ad7afcf33f771ffb6d19fef3f7c97e166f59ee0454c3b3"
 autorestic_download_platform: linux_amd64
@@ -18,16 +33,13 @@ autorestic_download_binary: "{{ (autorestic_download_zip | splitext)[0] }}"
 autorestic_install_binary: autorestic
 autorestic_install_directory: /usr/local/bin
 
-# Configuration file
+################### Autorestic Configuration ##################################
+
 autorestic_config_yaml: CHANGEME # autorestic configuration in yaml (Optional)
 autorestic_config_path: "{{ autorestic_user_directory }}/.autorestic.yml"
 autorestic_config_mode: 0600
 autorestic_config_owner: "{{ autorestic_user }}"
 autorestic_config_group: "{{ autorestic_user }}"
 
-# SSH key
-autorestic_key_directory: "{{ autorestic_user_directory }}/.ssh"
-autorestic_key: CHANGEME # Private key (Optional)
-autorestic_key_path: "{{ autorestic_key_directory }}/autorestic"
-autorestic_key_pub: CHANGEME # Public key (Optional)
-autorestic_key_pub_path: "{{ autorestic_key_directory }}/autorestic.pub"
+################### Autorestic Cron ###########################################
+

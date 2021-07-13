@@ -1,7 +1,15 @@
 ---
-- import_tasks: install.yml
+- name: Install dependencies
+  package:
+    name: bzip2
+    state: present
 
-- name: Create autorestic user
+- import_tasks: install-restic.yml
+  when: autorestic_restic_install
+- import_tasks: install-autorestic.yml
+  when: autorestic_autorestic_install
+
+- name: Make sure autorestic user exists
   user:
     name: "{{ autorestic_user }}"
   register: autorestic_user_register
@@ -20,5 +28,3 @@
     mode: "{{ autorestic_config_mode }}"
   become: true
   when: autorestic_config_yaml != "CHANGEME"
-
-- import_tasks: ssh.yml
