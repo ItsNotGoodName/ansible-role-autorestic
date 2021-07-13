@@ -1,8 +1,17 @@
 # ansible-role-autorestic
 
-This roles install autorestic and restic on a Debian 10 system.
-It also can copy over autorestic conf file and your ssh keys.
-This may work on other systems that have the restic package in their repo.
+This roles install autorestic and restic on Debian 10. 
+It may work on other systems that have the restic package in their repository.
+
+## Features
+
+### Main
+- Install restic via system package manager
+- Install autorestic via github
+
+### Optional
+- Copy over private and public ssh key
+- Copy over autorestic configuration
 
 ## Role Variables
 
@@ -22,6 +31,10 @@ autorestic_config_yaml:
 ## Todo
 
 - Cronjobs
+- Install restic via github
+- Use `ansible` ssh key with autorestic
+- Run `autorestic check` with a tag
+- Refactor config and key paths/users
 
 ## License
 
