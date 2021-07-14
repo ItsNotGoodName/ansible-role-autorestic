@@ -1,7 +1,7 @@
 ---
-- name: "Get stat of {{ autorestic_install_directory }}/{{ autorestic_install_binary }}"
+- name: "Get stat of {{ autorestic_install_path }}"
   stat:
-    path: "{{ autorestic_install_directory }}/{{ autorestic_install_binary }}"
+    path: "{{ autorestic_install_path }}"
   register: binary_register
 
 - name: Get autorestic version
@@ -39,7 +39,7 @@
     - name: Copy autorestic binary to install directory
       copy:
         src: "{{ autorestic_download_directory }}/{{ autorestic_download_binary }}"
-        dest: "{{ autorestic_install_directory }}/{{ autorestic_install_binary }}"
+        dest: "{{ autorestic_install_path }}"
         mode: 0755
         remote_src: true
 

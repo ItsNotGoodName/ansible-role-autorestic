@@ -24,6 +24,7 @@ None
 ### Optional
 
 Example configure `.autorestic.yml` file.
+
 ```yaml
 autorestic_config_yaml:
   locations:
@@ -38,22 +39,24 @@ autorestic_config_yaml:
 ```
 
 Example backup every day and forget every week using cron.
+
 ```yaml
 autorestic_cron_enable: true
 
 autorestic_cron_daily: |
   #!/bin/bash
-  su {{ autorestic_user }} -c "{{ autorestic_install_directory }}/{{ autorestic_install_binary }} backup -a --ci -c {{ autorestic_config_path }}"
+  su {{ autorestic_user }} -c "{{ autorestic_install_path }} backup -a --ci -c {{ autorestic_config_path }}"
 
 autorestic_cron_weekly: |
   #!/bin/bash
-  su {{ autorestic_user }} -c "{{ autorestic_install_directory }}/{{ autorestic_install_binary }} forget -a --ci -c {{ autorestic_config_path }}"
+  su {{ autorestic_user }} -c "{{ autorestic_install_path }} forget -a --ci -c {{ autorestic_config_path }}"
 ```
 
 ## Todo
 
 - Run `autorestic check` with a tag
 - Always run remove cron tasks
+
 ## License
 
 MIT

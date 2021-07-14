@@ -17,6 +17,7 @@ autorestic_restic_download_binary: "{{ (autorestic_restic_download_zip | splitex
 # Install location of restic
 autorestic_restic_install_binary: restic
 autorestic_restic_install_directory: /usr/local/bin
+autorestic_restic_install_path: "{{ autorestic_restic_install_directory }}/{{ autorestic_restic_install_binary }}"
 
 ################### Autorestic Install ########################################
 
@@ -32,6 +33,7 @@ autorestic_download_binary: "{{ (autorestic_download_zip | splitext)[0] }}"
 # Install location of autorestic
 autorestic_install_binary: autorestic
 autorestic_install_directory: /usr/local/bin
+autorestic_install_path: "{{ autorestic_install_directory }}/{{ autorestic_install_binary }}"
 
 ################### Autorestic Configuration ##################################
 
