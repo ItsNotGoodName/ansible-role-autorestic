@@ -46,10 +46,6 @@ autorestic_config_group: "{{ autorestic_user }}"
 autorestic_cron_enable: false
 
 autorestic_cron_hourly: CHANGEME
-autorestic_cron_daily: |
-  #!/bin/bash
-  su {{ autorestic_user }} -c "{{ autorestic_install_directory }}/{{ autorestic_install_binary }} backup -a --ci -c {{ autorestic_config_path }}"
-autorestic_cron_weekly: |
-  #!/bin/bash
-  su {{ autorestic_user }} -c "{{ autorestic_install_directory }}/{{ autorestic_install_binary }} forget -a --ci -c {{ autorestic_config_path }}"
+autorestic_cron_daily: CHANGEME
+autorestic_cron_weekly: CHANGEME
 autorestic_cron_monthly: CHANGEME
