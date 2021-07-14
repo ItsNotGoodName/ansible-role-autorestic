@@ -1,0 +1,24 @@
+---
+- name: Remove hourly cron
+  file:
+    path: "/etc/cron.hourly/autorestic_{{ autorestic_user }}"
+    state: absent
+  become: true
+
+- name: Remove daily cron
+  file:
+    path: "/etc/cron.daily/autorestic_{{ autorestic_user }}"
+    state: absent
+  become: true
+
+- name: Remove weekly cron
+  file:
+    path: "/etc/cron.weekly/autorestic_{{ autorestic_user }}"
+    state: absent
+  become: true
+
+- name: Remove monthly cron
+  file:
+    path: "/etc/cron.monthly/autorestic_{{ autorestic_user }}"
+    state: absent
+  become: true

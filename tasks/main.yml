@@ -30,3 +30,9 @@
     mode: "{{ autorestic_config_mode }}"
   become: true
   when: autorestic_config_yaml != "CHANGEME"
+
+- import_tasks: cron.yml
+  when: autorestic_cron_enable
+
+- import_tasks: cron-remove.yml
+  when: not autorestic_cron_enable

@@ -1,0 +1,46 @@
+---
+- name: Install anacron
+  package:
+    name: anacron
+    state: present
+  become: true
+
+- name: Copy hourly cron
+  copy:
+    content: "{{ autorestic_cron_hourly }}"
+    dest: "/etc/cron.hourly/autorestic_{{ autorestic_user }}"
+    owner: "root"
+    group: "root"
+    mode: "0755"
+  become: true
+  when: autorestic_cron_hourly != "CHANGEME"
+
+- name: Copy daily cron
+  copy:
+    content: "{{ autorestic_cron_daily }}"
+    dest: "/etc/cron.daily/autorestic_{{ autorestic_user }}"
+    owner: "root"
+    group: "root"
+    mode: "0755"
+  become: true
+  when: autorestic_cron_daily != "CHANGEME"
+
+- name: Copy weekly cron
+  copy:
+    content: "{{ autorestic_cron_weekly }}"
+    dest: "/etc/cron.weekly/autorestic_{{ autorestic_user }}"
+    owner: "root"
+    group: "root"
+    mode: "0755"
+  become: true
+  when: autorestic_cron_weekly != "CHANGEME"
+
+- name: Copy monthly cron
+  copy:
+    content: "{{ autorestic_cron_monthly }}"
+    dest: "/etc/cron.monthly/autorestic_{{ autorestic_user }}"
+    owner: "root"
+    group: "root"
+    mode: "0755"
+  become: true
+  when: autorestic_cron_monthly != "CHANGEME"

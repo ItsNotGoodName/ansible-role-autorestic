@@ -1,24 +1,28 @@
 # ansible-role-autorestic
 
-This role installs autorestic and restic from their Github repositories. 
+This role installs autorestic and restic from their Github repositories.
 
 ## Features
 
 - Install autorestic via github
 - Install restic via github
 - Copy over autorestic configuration
+- Setup cronjobs
 
 ## Role Variables
 
-It assumes that the user `root` is handling backups and can be changed with the `autorestic_user` variable. 
+It assumes that the user `root` is handling backups and can be changed with the `autorestic_user` variable.
 
 You can toggle installing autorestic and restic by setting `autorestic_autorestic_install` and `autorestic_restic_install` to `true` or `false`.
+
+You can enable cron by setting `autorestic_cron_enable` to `true`.
 
 ### Required
 
 None
 
 ### Optional
+
 ```yaml
 autorestic_config_yaml:
   locations:
@@ -34,7 +38,6 @@ autorestic_config_yaml:
 
 ## Todo
 
-- Cronjobs
 - Run `autorestic check` with a tag
 
 ## License
