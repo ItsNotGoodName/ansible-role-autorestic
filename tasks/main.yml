@@ -1,9 +1,11 @@
 ---
 - name: Install dependencies
-  package:
+  apt:
+    cache_valid_time: 3600
     name: bzip2
     state: present
   become: true
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
 - import_tasks: install-restic.yml
   when: autorestic_restic_install
@@ -32,7 +34,3 @@
   when: autorestic_config_yaml != "CHANGEME"
 
 - import_tasks: cron.yml
-  when: autorestic_cron_enable
-
-- import_tasks: cron-remove.yml
-  when: not autorestic_cron_enable

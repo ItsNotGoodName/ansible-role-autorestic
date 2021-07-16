@@ -1,6 +1,4 @@
 ---
-autorestic_cron_enable: true
-
 autorestic_config_yaml:
   locations:
     home:

@@ -45,8 +45,6 @@ autorestic_config_group: "{{ autorestic_user }}"
 
 ################### Autorestic Cron ###########################################
 
-autorestic_cron_enable: false
-
 autorestic_cron_hourly: CHANGEME
 autorestic_cron_daily: CHANGEME
 autorestic_cron_weekly: CHANGEME

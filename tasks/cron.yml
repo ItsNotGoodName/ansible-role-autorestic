@@ -1,46 +1,36 @@
 ---
 - name: Install anacron
-  package:
+  apt:
+    cache_valid_time: 3600
     name: anacron
     state: present
   become: true
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
-- name: Copy hourly cron
+- set_fact:
+    ansible_cron_list:
+      - time: hourly
+        content: "{{ autorestic_cron_hourly }}"
+      - time: daily
+        content: "{{ autorestic_cron_daily }}"
+      - time: weekly
+        content: "{{ autorestic_cron_weekly }}"
+      - time: monthly
+        content: "{{ autorestic_cron_monthly }}"
+
+- name: Copy cron
   copy:
-    content: "{{ autorestic_cron_hourly }}"
-    dest: "/etc/cron.hourly/autorestic_{{ autorestic_user }}"
+    content: "{{ item.content }}"
+    dest: "/etc/cron.{{ item.time }}/autorestic_{{ autorestic_user }}"
     owner: "root"
     group: "root"
     mode: "0755"
   become: true
-  when: autorestic_cron_hourly != "CHANGEME"
+  loop: "{{ ansible_cron_list | rejectattr('content', 'equalto', 'CHANGEME') }}"
 
-- name: Copy daily cron
-  copy:
-    content: "{{ autorestic_cron_daily }}"
-    dest: "/etc/cron.daily/autorestic_{{ autorestic_user }}"
-    owner: "root"
-    group: "root"
-    mode: "0755"
+- name: Remove cron
+  file:
+    path: "/etc/cron.{{ item.time }}/autorestic_{{ autorestic_user }}"
+    state: absent
   become: true
-  when: autorestic_cron_daily != "CHANGEME"
-
-- name: Copy weekly cron
-  copy:
-    content: "{{ autorestic_cron_weekly }}"
-    dest: "/etc/cron.weekly/autorestic_{{ autorestic_user }}"
-    owner: "root"
-    group: "root"
-    mode: "0755"
-  become: true
-  when: autorestic_cron_weekly != "CHANGEME"
-
-- name: Copy monthly cron
-  copy:
-    content: "{{ autorestic_cron_monthly }}"
-    dest: "/etc/cron.monthly/autorestic_{{ autorestic_user }}"
-    owner: "root"
-    group: "root"
-    mode: "0755"
-  become: true
-  when: autorestic_cron_monthly != "CHANGEME"
+  loop: "{{ ansible_cron_list | selectattr('content', 'equalto', 'CHANGEME') }}"
