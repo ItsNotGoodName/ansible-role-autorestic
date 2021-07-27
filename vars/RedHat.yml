@@ -1,0 +1,3 @@
+---
+autorestic_cron_packages:
+  - cronie-anacron

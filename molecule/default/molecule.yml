@@ -4,8 +4,8 @@ dependency:
 driver:
   name: docker
 platforms:
-  - name: debian10
-    image: docker.io/pycontribs/debian
+  - name: instance
+    image: geerlingguy/docker-${MOLECULE_DISTRO:-debian10}-ansible:latest
     pre_build_image: true
 provisioner:
   name: ansible

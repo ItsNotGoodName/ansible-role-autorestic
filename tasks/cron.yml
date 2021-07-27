@@ -1,13 +1,16 @@
 ---
-- name: Install anacron
-  apt:
-    cache_valid_time: 3600
-    name: anacron
+- name: Install anacron packages
+  package:
+    name: "{{ autorestic_cron_packages }}"
     state: present
   become: true
-  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+  when: autorestic_cron_hourly != "CHANGEME" 
+    or autorestic_cron_daily != "CHANGEME"
+    or autorestic_cron_weekly != "CHANGEME"
+    or autorestic_cron_monthly != "CHANGEME"
 
-- set_fact:
+- name: Set ansible_cron_list variable
+  set_fact:
     ansible_cron_list:
       - time: hourly
         content: "{{ autorestic_cron_hourly }}"
@@ -18,7 +21,7 @@
       - time: monthly
         content: "{{ autorestic_cron_monthly }}"
 
-- name: Copy cron
+- name: Copy cron scripts
   copy:
     content: "{{ item.content }}"
     dest: "/etc/cron.{{ item.time }}/autorestic_{{ autorestic_user }}"
@@ -28,7 +31,7 @@
   become: true
   loop: "{{ ansible_cron_list | rejectattr('content', 'equalto', 'CHANGEME') }}"
 
-- name: Remove cron
+- name: Remove cron scripts
   file:
     path: "/etc/cron.{{ item.time }}/autorestic_{{ autorestic_user }}"
     state: absent

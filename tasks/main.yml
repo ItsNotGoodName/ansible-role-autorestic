@@ -1,11 +1,16 @@
 ---
+- name: Include OS-specific variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - files:
+        - "vars/{{ ansible_os_family }}.yml"
+      skip: true
+
 - name: Install dependencies
-  apt:
-    cache_valid_time: 3600
-    name: bzip2
+  package:
+    name: "{{ autorestic_packages }}"
     state: present
   become: true
-  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
 - import_tasks: install-restic.yml
   when: autorestic_restic_install
@@ -13,24 +18,6 @@
 - import_tasks: install-autorestic.yml
   when: autorestic_autorestic_install
 
-- name: Make sure autorestic user exists
-  user:
-    name: "{{ autorestic_user }}"
-  register: autorestic_user_register
-  become: true
-
-- name: Set autorestic_user_directory variable
-  set_fact:
-    autorestic_user_directory: "{{ autorestic_user_register.home }}"
-
-- name: Copy autorestic config file
-  copy:
-    content: "{{ autorestic_config_yaml | to_nice_yaml }}"
-    dest: "{{ autorestic_config_path }}"
-    owner: "{{ autorestic_config_owner }}"
-    group: "{{ autorestic_config_group }}"
-    mode: "{{ autorestic_config_mode }}"
-  become: true
-  when: autorestic_config_yaml != "CHANGEME"
+- import_tasks: user.yml
 
 - import_tasks: cron.yml

@@ -40,7 +40,9 @@ galaxy_info:
   #   - 7
   #   - 99.99
   platforms:
-    []
+    - name: EL
+    - name: Debian
+    - name: Archlinux
 
   galaxy_tags:
     []

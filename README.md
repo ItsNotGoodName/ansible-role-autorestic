@@ -1,7 +1,6 @@
 # ansible-role-autorestic
 
 This role installs and configures autorestic and restic from their Github repositories.
-Requires a Debian based distribution for installing dependencies such as bzip2 and anacron.
 
 ## Features
 
@@ -52,7 +51,6 @@ autorestic_cron_weekly: |
 ## Todo
 
 - Run `autorestic check` with a tag
-- Platform independent dependency install
 
 ## License
 

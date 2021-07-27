@@ -1,0 +1,21 @@
+---
+- name: Make sure autorestic user exists
+  user:
+    name: "{{ autorestic_user }}"
+  register: autorestic_user_register
+  become: true
+
+- name: Set autorestic_user_directory variable
+  set_fact:
+    autorestic_user_directory: "{{ autorestic_user_register.home }}"
+
+- name: Copy autorestic config file
+  copy:
+    content: "{{ autorestic_config_yaml | to_nice_yaml }}"
+    dest: "{{ autorestic_config_path }}"
+    owner: "{{ autorestic_config_owner }}"
+    group: "{{ autorestic_config_group }}"
+    mode: "{{ autorestic_config_mode }}"
+  become: true
+  when: autorestic_config_yaml != "CHANGEME"
+

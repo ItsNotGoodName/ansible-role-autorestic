@@ -2,6 +2,8 @@
 autorestic_user: root
 autorestic_restic_install: true
 autorestic_autorestic_install: true
+autorestic_packages:
+  - bzip2
 
 ################### Restic Install ############################################
 
@@ -44,6 +46,9 @@ autorestic_config_owner: "{{ autorestic_user }}"
 autorestic_config_group: "{{ autorestic_user }}"
 
 ################### Autorestic Cron ###########################################
+
+autorestic_cron_packages:
+  - anacron
 
 autorestic_cron_hourly: CHANGEME
 autorestic_cron_daily: CHANGEME
