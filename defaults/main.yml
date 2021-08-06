@@ -1,7 +1,7 @@
 ---
 autorestic_user: root
 autorestic_restic_install: true
-autorestic_autorestic_install: true
+autorestic_install: true
 autorestic_packages:
   - bzip2
 

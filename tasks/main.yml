@@ -14,10 +14,14 @@
 
 - import_tasks: install-restic.yml
   when: autorestic_restic_install
+  tags: autorestic_restic_install
 
 - import_tasks: install-autorestic.yml
-  when: autorestic_autorestic_install
+  when: autorestic_install
+  tags: autorestic_install
 
 - import_tasks: user.yml
+  tags: autorestic_user
 
 - import_tasks: cron.yml
+  tags: autorestic_cron
