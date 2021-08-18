@@ -7,7 +7,6 @@ This role installs and configures autorestic and restic from their Github reposi
 - Install autorestic via github
 - Install restic via github
 - Copy over autorestic configuration
-- Setup cronjobs
 
 ## Role Variables
 
@@ -34,18 +33,6 @@ autorestic_config_yaml:
       type: local
       path: /backup
       key: 123
-```
-
-Example backup every day and forget every week using cron.
-
-```yaml
-autorestic_cron_daily: |
-  #!/bin/bash
-  su {{ autorestic_user }} -c "{{ autorestic_install_path }} backup -a --ci -c {{ autorestic_config_path }}"
-
-autorestic_cron_weekly: |
-  #!/bin/bash
-  su {{ autorestic_user }} -c "{{ autorestic_install_path }} forget -a --ci -c {{ autorestic_config_path }}"
 ```
 
 ## Todo

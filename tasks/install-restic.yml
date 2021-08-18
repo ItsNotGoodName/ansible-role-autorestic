@@ -31,7 +31,7 @@
       get_url:
         url: "{{ autorestic_restic_download_url }}"
         dest: "{{ autorestic_restic_download_directory }}"
-        checksum: "{{ autorestic_restic_download_checksum }}"
+        checksum: "{{ autorestic_restic_download_checksum | default(omit) }}"
 
     - name: Extract restic
       shell: "cd {{ autorestic_restic_download_directory }} && bzip2 -d {{ autorestic_restic_download_zip }}"
