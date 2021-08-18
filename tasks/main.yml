@@ -7,15 +7,10 @@
   tags: autorestic, autorestic_restic_install, autorestic_install
 
 - import_tasks: install-restic.yml
-  when: autorestic_restic_install
   tags: autorestic, autorestic_restic_install
 
 - import_tasks: install-autorestic.yml
-  when: autorestic_install
   tags: autorestic, autorestic_install
 
-- import_tasks: user.yml
-  tags: autorestic, autorestic_user
-
-- import_tasks: cron.yml
-  tags: autorestic, autorestic_cron
+- import_tasks: configure.yml
+  tags: autorestic, autorestic_configure

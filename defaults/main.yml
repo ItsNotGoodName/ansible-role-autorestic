@@ -6,8 +6,6 @@ autorestic_packages:
 
 ################### Restic Install ############################################
 
-autorestic_restic_install: true
-
 # Download of restic
 autorestic_restic_download_version: 0.12.1
 autorestic_restic_download_zip: "restic_{{ autorestic_restic_download_version }}_{{ autorestic_platform }}.bz2"
@@ -21,8 +19,6 @@ autorestic_restic_install_directory: /usr/local/bin
 autorestic_restic_install_path: "{{ autorestic_restic_install_directory }}/{{ autorestic_restic_install_binary }}"
 
 ################### Autorestic Install ########################################
-
-autorestic_install: true
 
 # Download of autorestic
 autorestic_download_version: 1.2.0

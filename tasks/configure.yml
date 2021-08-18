@@ -16,6 +16,18 @@
     owner: "{{ autorestic_config_owner }}"
     group: "{{ autorestic_config_group }}"
     mode: "{{ autorestic_config_mode }}"
-  become: true
   when: autorestic_config_yaml != "CHANGEME"
+  become: true
 
+- name: Add autorestic to cron
+  cron:
+    name: "autorestic cron"
+    minute: "{{ autorestic_cron_minute }}"
+    hour: "{{ autorestic_cron_hour }}"
+    month: "{{ autorestic_cron_month }}"
+    weekday: "{{ autorestic_cron_weekday }}"
+    user: "{{ autorestic_user }}"
+    job: "{{ autorestic_install_path }} -c {{ autorestic_config_path }} --ci cron"
+  ignore_errors: true
+  become: true
+  when: autorestic_cron
