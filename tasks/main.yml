@@ -16,3 +16,6 @@
 
 - import_tasks: user.yml
   tags: autorestic, autorestic_user
+
+- import_tasks: cron.yml
+  tags: autorestic, autorestic_cron

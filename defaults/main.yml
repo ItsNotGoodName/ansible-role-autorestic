@@ -43,3 +43,13 @@ autorestic_config_path: "{{ autorestic_user_directory }}/.autorestic.yml"
 autorestic_config_mode: 0600
 autorestic_config_owner: "{{ autorestic_user }}"
 autorestic_config_group: "{{ autorestic_user }}"
+
+################### Autorestic Cron ###########################################
+
+autorestic_cron: true
+
+# How often to run the "autorestic --ci cron" command
+autorestic_cron_minute: "*/5"
+autorestic_cron_hour: "*"
+autorestic_cron_month: "*"
+autorestic_cron_weekday: "*"
