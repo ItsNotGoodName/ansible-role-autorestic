@@ -6,18 +6,20 @@ This role installs and configures [autorestic](https://github.com/cupcakearmy/au
 - Install autorestic from GitHub
 - Install restic from GitHub
 - Copy autorestic configuration to home directory
-- Add `autorestic --ci cron` to cron
+- Add `*/5 * * * * autorestic --ci cron` to cron
 
 ## Role Variables
 
 Autorestic configuration is copied to `root` user's home directory by default. 
 It can be changed to another user's home directory with the `autorestic_user` variable. 
 
-You can toggle installing autorestic and restic by setting `autorestic_install` and `autorestic_restic_install` to `true` or `false`.
+Toggle installing autorestic and restic by setting `autorestic_install` and `autorestic_restic_install` to `true` or `false`.
+
+Disable cron by setting `autorestic_cron` to `false`.
 
 ### Required
 
-Cron package installed for your distribution or disable cron by setting `autorestic_cron` to `false`.
+None
 
 ### Optional
 
