@@ -1,18 +1,18 @@
 # ansible-role-autorestic
 
-This role installs and configures autorestic and restic from their Github repositories.
+This role installs and configures [autorestic](https://github.com/cupcakearmy/autorestic) and [restic](https://github.com/restic/restic).
 
 ## Features
-
-- Install autorestic via github
-- Install restic via github
-- Copy over autorestic configuration
+- Install autorestic from GitHub
+- Install restic from GitHub
+- Copy autorestic configuration to home directory
 
 ## Role Variables
 
-It assumes that the user `root` is handling backups but can be changed with the `autorestic_user` variable.
+Autorestic configuration is copied to `root` user's home directory by default. 
+It can be changed to another user's home directory with the `autorestic_user` variable. 
 
-You can toggle installing autorestic and restic by setting `autorestic_autorestic_install` and `autorestic_restic_install` to `true` or `false`.
+You can toggle installing autorestic and restic by setting `autorestic_install` and `autorestic_restic_install` to `true` or `false`.
 
 ### Required
 
@@ -20,7 +20,7 @@ None
 
 ### Optional
 
-Example configure `.autorestic.yml` file.
+Example autorestic config.
 
 ```yaml
 autorestic_config_yaml:
