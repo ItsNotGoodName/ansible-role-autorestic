@@ -28,6 +28,7 @@
     weekday: "{{ autorestic_cron_weekday }}"
     user: "{{ autorestic_user }}"
     job: "{{ autorestic_install_path }} -c {{ autorestic_config_path }} --ci cron"
-  ignore_errors: true
   become: true
-  when: autorestic_cron
+  ignore_errors: true
+  when: autorestic_cron | bool
+  tags: autorestic_cron
