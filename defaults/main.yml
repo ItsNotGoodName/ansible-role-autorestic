@@ -42,7 +42,7 @@ autorestic_config_group: "{{ autorestic_user }}"
 
 ################### Autorestic Cron ###########################################
 
-autorestic_cron: true
+autorestic_cron: False
 
 # How often to run the "autorestic --ci cron" command
 autorestic_cron_minute: "*/5"
