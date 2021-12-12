@@ -29,6 +29,5 @@
     user: "{{ autorestic_user }}"
     job: "{{ autorestic_install_path }} -c {{ autorestic_config_path }} --restic-bin {{ autorestic_restic_install_path }} --ci cron"
   become: true
-  ignore_errors: true
   when: autorestic_cron | bool
   tags: autorestic_cron
