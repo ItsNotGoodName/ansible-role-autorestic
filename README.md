@@ -1,8 +1,9 @@
 # ansible-role-autorestic
 
-This role installs and configures [autorestic](https://github.com/cupcakearmy/autorestic) and [restic](https://github.com/restic/restic).
+Install and configure [autorestic](https://github.com/cupcakearmy/autorestic) and [restic](https://github.com/restic/restic).
 
 ## Features
+
 - Install autorestic from GitHub
 - Install restic from GitHub
 - Copy autorestic configuration to home directory
@@ -12,14 +13,14 @@ This role installs and configures [autorestic](https://github.com/cupcakearmy/au
 
 Set the autorestic configuration with the `autorestic_config_yaml` variable.
 
-Autorestic configuration is copied to `root` user's home directory by default. 
-It can be changed to another user's home directory with the `autorestic_user` variable. 
+Autorestic configuration is copied to `root` user's home directory by default.
+It can be changed to another user's home directory with the `autorestic_user` variable.
 
 Enable cron by setting the `autorestic_cron` variable to `True`.
 
 The `autorestic_user_directory` variable is set in the role using `set_fact` task.
 
-The `autorestic_download_checksum ` and `autorestic_restic_download_checksum` can be optionally set to verify your autorestic and restic downloads.
+The `autorestic_download_checksum` and `autorestic_restic_download_checksum` can be optionally set to verify your autorestic and restic downloads.
 
 ### Required
 

@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: itsnotgoodname
-  description: Install and configure autorestic
+  description: Install and configure autorestic and restic.
   role_name: autorestic
 
   # If the issue tracker for your role is not on github, uncomment the
