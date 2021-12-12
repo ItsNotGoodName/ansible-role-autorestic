@@ -1,10 +1,24 @@
 ---
-# This is an example playbook to execute Ansible tests.
-
 - name: Verify
   hosts: all
   gather_facts: false
+  vars_files:
+    - ../../defaults/main.yml
   tasks:
-  - name: Example assertion
-    assert:
-      that: true
+    - name: Get restic version
+      shell: "{{ autorestic_restic_install_path }} version | grep -oP 'restic\\ \\K[0-9]*\\.[0-9]*\\.[0-9]*'"
+      register: autorestic_restic_version_register
+      changed_when: false
+
+    - name: Assert restic version is correct
+      assert:
+        that: autorestic_restic_version_register.stdout == autorestic_restic_download_version
+
+    - name: Get autorestic version
+      shell: "{{ autorestic_install_path }} --version | grep -oP 'autorestic\\ version\ \\K[0-9]*\\.[0-9]*\\.[0-9]*'"
+      register: autorestic_version_register
+      changed_when: false
+
+    - name: Assert autorestic version is correct
+      assert:
+        that: autorestic_version_register.stdout == autorestic_download_version

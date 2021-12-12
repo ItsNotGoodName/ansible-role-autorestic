@@ -41,8 +41,11 @@ galaxy_info:
   #   - 99.99
   platforms:
     - name: EL
-    - name: Debian
-    - name: Archlinux
+      versions:
+        - 8
+    - name: debian
+      versions:
+        - bullseye
 
   galaxy_tags:
     []
