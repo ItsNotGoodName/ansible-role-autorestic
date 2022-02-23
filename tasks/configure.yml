@@ -11,12 +11,12 @@
 
 - name: Copy autorestic config file
   copy:
-    content: "{{ autorestic_config_yaml | to_nice_yaml }}"
+    content: "{{ autorestic_config | to_nice_yaml }}"
     dest: "{{ autorestic_config_path }}"
     owner: "{{ autorestic_config_owner }}"
     group: "{{ autorestic_config_group }}"
     mode: "{{ autorestic_config_mode }}"
-  when: autorestic_config_yaml != "CHANGEME"
+  when: autorestic_config is defined
   become: true
 
 - name: Add autorestic to cron

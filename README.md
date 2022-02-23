@@ -7,11 +7,11 @@ Install and configure [autorestic](https://github.com/cupcakearmy/autorestic) an
 - Install autorestic from GitHub
 - Install restic from GitHub
 - Copy autorestic configuration to home directory
-- Add autorestic cron job, requires cron to be installed and `autorestic_cron` has to be `True`
+- Add autorestic cron job, requires cron to be installed and `autorestic_cron` has to be `true`
 
 ## Role Variables
 
-Set the autorestic configuration with the `autorestic_config_yaml` variable.
+Set the autorestic configuration with the `autorestic_config` variable.
 
 Autorestic configuration is copied to `root` user's home directory by default.
 It can be changed to another user's home directory with the `autorestic_user` variable.
@@ -31,7 +31,7 @@ None
 Example autorestic config.
 
 ```yaml
-autorestic_config_yaml:
+autorestic_config:
   locations:
     home:
       from: "{{ autorestic_user_directory }}"

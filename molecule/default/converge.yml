@@ -1,8 +1,6 @@
 ---
 - name: Converge
   hosts: all
-  vars_files:
-    - "test_vars.yml"
   tasks:
     - name: "Include itsnotgoodname.autorestic"
       include_role:
