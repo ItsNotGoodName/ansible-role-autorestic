@@ -1,6 +1,14 @@
 ---
+autorestic_architectures:
+  arm64: arm64
+  armv5l: arm
+  armv6l: arm
+  armv7l: arm
+  i386: 386
+  x86_64: amd64
+
 autorestic_user: root
-autorestic_platform: linux_amd64
+autorestic_platform: "{{ ansible_system | lower }}_{{ autorestic_architectures[ansible_architecture] }}"
 autorestic_packages:
   - bzip2
 
