@@ -8,6 +8,7 @@ Install and configure [autorestic](https://github.com/cupcakearmy/autorestic) an
 - Install restic from GitHub
 - Copy autorestic configuration to home directory
 - Add autorestic cron job, requires cron to be installed and `autorestic_cron` has to be `true`
+- Run autorestic check with `autorestic_check` tag
 
 ## Role Variables
 
@@ -16,11 +17,13 @@ Set the autorestic configuration with the `autorestic_config` variable.
 Autorestic configuration is copied to `root` user's home directory by default.
 It can be changed to another user's home directory with the `autorestic_user` variable.
 
-Enable cron by setting the `autorestic_cron` variable to `True`.
+Enable cron by setting the `autorestic_cron` variable to `true`.
 
-The `autorestic_user_directory` variable is set in the role using `set_fact` task.
+The `autorestic_user_directory` variable is set in the role using `ansible.builtin.set_fact` task.
 
-The `autorestic_download_checksum` and `autorestic_restic_download_checksum` can be optionally set to verify your autorestic and restic downloads.
+The versions can be changed by setting the `autorestic_download_version` and `autorestic_restic_download_version` variables.
+
+The `autorestic_download_checksum` and `autorestic_restic_download_checksum` can optionally be set to verify your downloads.
 
 ### Required
 
@@ -43,10 +46,7 @@ autorestic_config:
       key: 123
 ```
 
-## Todo
-
-- Run `autorestic check` with a tag
-- Run restic forget and prune on a schedule
+## To Do
 
 ## License
 
