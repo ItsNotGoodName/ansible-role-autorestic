@@ -6,9 +6,9 @@
   register: autorestic_user_register
   tags: always
 
-- name: Set autorestic_user_directory variable
+- name: Set autorestic_user_home variable
   ansible.builtin.set_fact:
-    autorestic_user_directory: "{{ autorestic_user_register.home }}"
+    autorestic_user_home: "{{ autorestic_user_register.home }}"
   tags: always
 
 - name: Copy autorestic config file

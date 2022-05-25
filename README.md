@@ -19,7 +19,7 @@ It can be changed to another user's home directory with the `autorestic_user` va
 
 Enable cron by setting the `autorestic_cron` variable to `true`.
 
-The `autorestic_user_directory` variable is set in the role using `ansible.builtin.set_fact` task.
+The `autorestic_user_home` variable is set in the role using `ansible.builtin.set_fact` task.
 
 The versions can be changed by setting the `autorestic_download_version` and `autorestic_restic_download_version` variables.
 
@@ -37,7 +37,7 @@ Example autorestic config.
 autorestic_config:
   locations:
     home:
-      from: "{{ autorestic_user_directory }}"
+      from: "{{ autorestic_user_home }}"
       to: local
   backends:
     local:
