@@ -2,12 +2,14 @@
 - name: Make sure autorestic user exists
   ansible.builtin.user:
     name: "{{ autorestic_user }}"
-  register: autorestic_user_register
   become: true
+  register: autorestic_user_register
+  tags: always
 
 - name: Set autorestic_user_directory variable
   ansible.builtin.set_fact:
     autorestic_user_directory: "{{ autorestic_user_register.home }}"
+  tags: always
 
 - name: Copy autorestic config file
   ansible.builtin.copy:
@@ -31,3 +33,12 @@
   become: true
   when: autorestic_cron | bool
   tags: autorestic_cron
+
+- name: Run autorestic check
+  ansible.builtin.command:
+    cmd: "{{ autorestic_install_path }} -c {{ autorestic_config_path }} --restic-bin {{ autorestic_restic_install_path }} check"
+  become: true
+  changed_when: '"Everything is fine." not in autorestic_check_register.stdout'
+  register: autorestic_check_register
+  tags: autorestic_check
+  when: '"autorestic_check" in ansible_run_tags'
