@@ -1,16 +1,16 @@
 ---
 - name: Install dependencies
-  package:
+  ansible.builtin.package:
     name: "{{ autorestic_packages }}"
     state: present
   become: true
   tags: autorestic, autorestic_restic_install, autorestic_install
 
-- import_tasks: install-restic.yml
+- ansible.builtin.import_tasks: install-restic.yml
   tags: autorestic, autorestic_restic_install
 
-- import_tasks: install-autorestic.yml
+- ansible.builtin.import_tasks: install-autorestic.yml
   tags: autorestic, autorestic_install
 
-- import_tasks: configure.yml
+- ansible.builtin.import_tasks: configure.yml
   tags: autorestic, autorestic_configure

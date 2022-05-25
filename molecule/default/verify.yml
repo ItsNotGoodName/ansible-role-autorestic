@@ -6,19 +6,27 @@
     - ../../defaults/main.yml
   tasks:
     - name: Get restic version
-      shell: "{{ autorestic_restic_install_path }} version | grep -oP 'restic\\ \\K[0-9]*\\.[0-9]*\\.[0-9]*'"
+      ansible.builtin.shell: |
+        set -o pipefail
+        {{ autorestic_restic_install_path }} version | cut -f2 -d ' '
+      args:
+        executable: /bin/bash
       register: autorestic_restic_version_register
       changed_when: false
 
     - name: Assert restic version is correct
-      assert:
+      ansible.builtin.assert:
         that: autorestic_restic_version_register.stdout == autorestic_restic_download_version
 
     - name: Get autorestic version
-      shell: "{{ autorestic_install_path }} --version | grep -oP 'autorestic\\ version\ \\K[0-9]*\\.[0-9]*\\.[0-9]*'"
+      ansible.builtin.shell: |
+        set -o pipefail
+        {{ autorestic_install_path }} --version | cut -f3 -d ' '
+      args:
+        executable: /bin/bash
       register: autorestic_version_register
       changed_when: false
 
     - name: Assert autorestic version is correct
-      assert:
+      ansible.builtin.assert:
         that: autorestic_version_register.stdout == autorestic_download_version

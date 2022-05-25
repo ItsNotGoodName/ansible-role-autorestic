@@ -1,16 +1,16 @@
 ---
 - name: Make sure autorestic user exists
-  user:
+  ansible.builtin.user:
     name: "{{ autorestic_user }}"
   register: autorestic_user_register
   become: true
 
 - name: Set autorestic_user_directory variable
-  set_fact:
+  ansible.builtin.set_fact:
     autorestic_user_directory: "{{ autorestic_user_register.home }}"
 
 - name: Copy autorestic config file
-  copy:
+  ansible.builtin.copy:
     content: "{{ autorestic_config | to_nice_yaml }}"
     dest: "{{ autorestic_config_path }}"
     owner: "{{ autorestic_config_owner }}"
@@ -20,7 +20,7 @@
   become: true
 
 - name: Add autorestic to cron
-  cron:
+  ansible.builtin.cron:
     name: "autorestic cron"
     minute: "{{ autorestic_cron_minute }}"
     hour: "{{ autorestic_cron_hour }}"

@@ -17,7 +17,7 @@ galaxy_info:
   # - CC-BY-4.0
   license: MIT
 
-  min_ansible_version: 2.9
+  min_ansible_version: "2.9"
 
   # If this a Container Enabled role, provide the minimum Ansible Container version.
   # min_ansible_container_version:
@@ -42,8 +42,8 @@ galaxy_info:
   platforms:
     - name: EL
       versions:
-        - 8
-    - name: debian
+        - "8"
+    - name: Debian
       versions:
         - bullseye
 

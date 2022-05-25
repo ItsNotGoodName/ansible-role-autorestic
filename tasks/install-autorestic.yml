@@ -1,47 +1,51 @@
 ---
 - name: "Get stat of {{ autorestic_install_path }}"
-  stat:
+  ansible.builtin.stat:
     path: "{{ autorestic_install_path }}"
-  register: binary_register
+  register: autorestic_binary_register
 
 - name: Get autorestic version
-  shell: "{{ binary_register.stat.path }} --version | grep -oP 'autorestic\\ version\ \\K[0-9]*\\.[0-9]*\\.[0-9]*'"
-  register: version_register
-  changed_when: false
-  when: binary_register.stat.exists
+  ansible.builtin.shell: |
+    set -o pipefail
+    {{ autorestic_binary_register.stat.path }} --version | cut -f3 -d ' '
+  args:
+    executable: /bin/bash
+  register: autorestic_version_register
+  changed_when: False
+  when: autorestic_binary_register.stat.exists
 
-- name: Set autorestic install variables
-  set_fact:
-    autorestic_installed: "{{ binary_register.stat.exists }}"
-    autorestic_install_version: "{{ version_register.stdout | default(False) }}"
-
-- block:
+- name: Install autorestic
+  block:
     - name: "Make sure {{ autorestic_download_directory }} does not exist"
-      file:
+      ansible.builtin.file:
         path: "{{ autorestic_download_directory }}"
         state: absent
 
     - name: "Create {{ autorestic_download_directory }}"
-      file:
+      ansible.builtin.file:
         path: "{{ autorestic_download_directory }}"
         state: directory
         mode: 0755
 
     - name: Download autorestic
-      get_url:
+      ansible.builtin.get_url:
         url: "{{ autorestic_download_url }}"
         dest: "{{ autorestic_download_directory }}"
         checksum: "{{ autorestic_download_checksum | default(omit) }}"
+        mode: 0644
 
     - name: Extract autorestic
-      shell: "cd {{ autorestic_download_directory }} && bzip2 -d {{ autorestic_download_zip }}"
+      ansible.builtin.command:
+        chdir: "{{ autorestic_download_directory }}"
+        cmd: "bzip2 -d {{ autorestic_download_zip }}"
+        creates: "{{ autorestic_download_directory }}/{{ autorestic_download_binary }}"
 
     - name: Copy autorestic binary to install directory
-      copy:
+      ansible.builtin.copy:
         src: "{{ autorestic_download_directory }}/{{ autorestic_download_binary }}"
         dest: "{{ autorestic_install_path }}"
         mode: 0755
         remote_src: true
 
-  when: not autorestic_installed or autorestic_install_version != autorestic_download_version
+  when: not autorestic_binary_register.stat.exists or (autorestic_version_register.stdout | default('')) != autorestic_download_version
   become: true
