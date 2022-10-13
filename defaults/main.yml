@@ -15,12 +15,12 @@ autorestic_packages:
 ################### Restic Install ############################################
 
 # Download of restic
-autorestic_restic_download_version: 0.13.1
+autorestic_restic_download_version: 0.14.0
 autorestic_restic_download_zip: "restic_{{ autorestic_restic_download_version }}_{{ autorestic_platform }}.bz2"
 autorestic_restic_download_url: "https://github.com/restic/restic/releases/download/v{{ autorestic_restic_download_version }}/{{ autorestic_restic_download_zip }}"
 autorestic_restic_download_directory: "/tmp/restic_install"
 autorestic_restic_download_binary: "{{ (autorestic_restic_download_zip | splitext)[0] }}"
-#autorestic_restic_download_checksum: sha256:a7a82eca050224c9cd070fea1d4208fe92358c5942321d6e01eff84a77839fb8
+#autorestic_restic_download_checksum: sha256:
 
 # Install location of restic
 autorestic_restic_install_binary: restic
@@ -30,12 +30,12 @@ autorestic_restic_install_path: "{{ autorestic_restic_install_directory }}/{{ au
 ################### Autorestic Install ########################################
 
 # Download of autorestic
-autorestic_download_version: 1.7.1
+autorestic_download_version: 1.7.3
 autorestic_download_zip: "autorestic_{{ autorestic_download_version }}_{{ autorestic_platform }}.bz2"
 autorestic_download_url: "https://github.com/cupcakearmy/autorestic/releases/download/v{{ autorestic_download_version }}/{{ autorestic_download_zip }}"
 autorestic_download_directory: "/tmp/autorestic_install"
 autorestic_download_binary: "{{ (autorestic_download_zip | splitext)[0] }}"
-#autorestic_download_checksum: sha256:d90e9a390155c6b9b8044dfa8a5abc55f62cff32807ce5b0e46e69f0f5f40d93
+#autorestic_download_checksum: sha256:
 
 # Install location of autorestic
 autorestic_install_binary: autorestic
