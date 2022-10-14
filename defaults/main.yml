@@ -15,7 +15,7 @@ autorestic_packages:
 ################### Restic Install ############################################
 
 # Download of restic
-autorestic_restic_download_version: 0.14.0
+autorestic_restic_download_version: 0.13.1
 autorestic_restic_download_zip: "restic_{{ autorestic_restic_download_version }}_{{ autorestic_platform }}.bz2"
 autorestic_restic_download_url: "https://github.com/restic/restic/releases/download/v{{ autorestic_restic_download_version }}/{{ autorestic_restic_download_zip }}"
 autorestic_restic_download_directory: "/tmp/restic_install"
