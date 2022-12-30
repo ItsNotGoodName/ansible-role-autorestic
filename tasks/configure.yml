@@ -4,12 +4,16 @@
     name: "{{ autorestic_user }}"
   become: true
   register: autorestic_user_register
-  tags: autorestic_cron
+  tags:
+    - autorestic_cron
+    - autorestic_check
 
 - name: Set autorestic_user_home variable
   ansible.builtin.set_fact:
     autorestic_user_home: "{{ autorestic_user_register.home }}"
-  tags: autorestic_cron
+  tags:
+    - autorestic_cron
+    - autorestic_check
 
 - name: Copy autorestic config file
   ansible.builtin.copy:
